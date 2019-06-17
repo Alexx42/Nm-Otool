@@ -1,31 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_count_digits.c                                  :+:      :+:    :+:   */
+/*   ft_lstadd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/11 23:50:28 by ale-goff          #+#    #+#             */
-/*   Updated: 2018/11/12 00:47:13 by ale-goff         ###   ########.fr       */
+/*   Created: 2018/09/14 18:05:36 by ale-goff          #+#    #+#             */
+/*   Updated: 2018/09/14 18:40:40 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_count_digits(int nb)
+void	ft_lstadd(t_list **alst, t_list *new)
 {
-	int		count;
-
-	count = 0;
-	if (nb < 0)
-	{
-		count++;
-		nb = -nb;
-	}
-	while (nb > 0)
-	{
-		nb = nb / 10;
-		count++;
-	}
-	return (count);
+	new->next = *alst;
+	*alst = new;
 }

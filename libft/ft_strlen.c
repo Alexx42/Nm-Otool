@@ -6,27 +6,18 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 16:03:09 by ale-goff          #+#    #+#             */
-/*   Updated: 2018/11/26 09:58:55 by tholzheu         ###   ########.fr       */
+/*   Updated: 2018/09/11 19:53:04 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t		ft_strlen(const char *str)
+size_t	ft_strlen(const char *s)
 {
-	char *ptr;
+	size_t i;
 
-	ptr = (char *)str;
-	while (1)
-	{
-		if (!*(ptr++))
-			break ;
-		if (!*(ptr++))
-			break ;
-		if (!*(ptr++))
-			break ;
-		if (!*(ptr++))
-			break ;
-	}
-	return ((ptr - 1) - str);
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }

@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_freemap.c                                       :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-goff <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/24 22:39:51 by ale-goff          #+#    #+#             */
-/*   Updated: 2018/10/24 22:40:08 by ale-goff         ###   ########.fr       */
+/*   Created: 2018/09/14 17:00:07 by ale-goff          #+#    #+#             */
+/*   Updated: 2018/11/14 15:13:16 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_freemap(char **arr, int x)
+void	ft_lstdelone(t_list **alst, void (*del)(void *, size_t))
 {
-	int i;
-
-	i = 0;
-	while (i < x)
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
+	if (!alst || !*alst)
+		return ;
+	del((*alst)->content, (*alst)->content_size);
+	free(*alst);
+	*alst = NULL;
 }

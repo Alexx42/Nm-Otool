@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/13 15:58:01 by ale-goff          #+#    #+#             */
-/*   Updated: 2018/09/13 20:45:24 by ale-goff         ###   ########.fr       */
+/*   Created: 2018/09/12 09:37:27 by ale-goff          #+#    #+#             */
+/*   Updated: 2018/10/03 21:57:21 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putchar(char c)
+int	ft_putchar(char c)
 {
-	write(1, &c, 1);
+	return (write(1, &c, 1));
 }

@@ -1,34 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/12 09:55:20 by ale-goff          #+#    #+#             */
-/*   Updated: 2018/10/03 21:57:31 by ale-goff         ###   ########.fr       */
+/*   Created: 2018/09/14 18:22:25 by ale-goff          #+#    #+#             */
+/*   Updated: 2018/11/14 15:24:21 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_putnbr(int n)
+t_list		*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	int len;
+	t_list		*new;
+	t_list		*list;
 
-	len = 0;
-	if (n == -2147483648)
-		len += ft_putstr("-2147483648");
-	else
+	if (!lst)
+		return (NULL);
+	list = f(lst);
+	new = list;
+	while (lst->next)
 	{
-		if (n < 0)
+		lst = lst->next;
+		if (!(list->next = f(lst)))
 		{
-			len += ft_putchar('-');
-			n *= -1;
+			free(list->next);
+			return (NULL);
 		}
-		if (n >= 10)
-			len += ft_putnbr(n / 10);
-		len += ft_putchar((n % 10) + '0');
+		list = list->next;
 	}
-	return (len);
+	return (new);
 }

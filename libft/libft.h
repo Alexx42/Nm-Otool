@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Alex <Alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 16:03:58 by ale-goff          #+#    #+#             */
-/*   Updated: 2018/12/09 04:36:01 by Alex             ###   ########.fr       */
+/*   Updated: 2018/10/03 22:19:49 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,45 +15,21 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-# define BUFF_SIZE 4096
+# include <stdarg.h>
 
-typedef struct		s_node
+typedef struct		s_list
 {
-    void			*content;
-    struct s_node	*next;
-}					t_node;
-typedef struct		s_stack
-{
-    struct s_node	*top;
-}					t_stack;
+	char			*content;
+	struct timespec st_mtimespec;
+	size_t			content_size;
+	struct s_list	*next;
+}					t_list;
 
-typedef struct      s_nodes
-{
-    char            *data;
-    struct s_nodes  *next;
-}                   t_nodes;
-
-typedef struct      s_list
-{
-    t_nodes         *head;
-    t_nodes         *tail;
-    int             size;
-}                   t_list;
-
-char    			*ft_strcdup(const char *s1, int c);
-size_t          	ft_clength(char *str, int c);
-char				*ft_strccpy(char *dst, char *str, int c);
-t_stack				*init_stack(void);
-void				*pop(t_stack *stack);
-void				push(t_stack *stack, void *content);
-int					is_empty(t_stack *stack);
-void				*peek(t_stack *stack);
-void				ft_freemap(char **arr, int x);
+int					ft_printf(const char *format, ...);
 char				*ft_strrev(char *str);
-void				ft_putoctal(unsigned int n);
-int					get_next_line(int fd, char **line);
-void				ft_putunsigned(unsigned int n);
-void				ft_puthex(unsigned long n);
+int					ft_putoctal(unsigned int n);
+int					ft_putunsigned(unsigned int n);
+int					ft_puthex(unsigned long n);
 int					ft_sqrt(int nb);
 int					ft_isascii(int c);
 void				*ft_memset(void *b, int c, size_t len);
@@ -76,7 +52,6 @@ char				*ft_strnew(size_t size);
 int					ft_isprint(int c);
 int					ft_isalnum(int c);
 int					ft_isalpha(int c);
-char				*ft_itoa_base(int value, int base);
 int					ft_atoi(const char *str);
 char				*ft_strstr(const char *haystack, const char *needle);
 char				*ft_strnstr(const char *haystack,
@@ -88,7 +63,7 @@ int					ft_strnequ(char const *s1, char const *s2, size_t n);
 void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 void				ft_memdel(void **ap);
-void				*ft_memalloc(int size);
+void				*ft_memalloc(size_t size);
 void				ft_strdel(char **as);
 void				ft_strclr(char *s);
 void				ft_striter(char *s, void (*f)(char *));
@@ -99,9 +74,9 @@ int					ft_strequ(char const *s1, char const *s2);
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s);
-void				ft_putchar(char c);
-void				ft_putstr(char const *s);
-void				ft_putnbr(int n);
+int					ft_putchar(char c);
+int					ft_putstr(char const *s);
+int					ft_putnbr(int n);
 void				ft_putstr_fd(char const *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 void				ft_putchar_fd(char c, int fd);
@@ -109,9 +84,12 @@ void				ft_putendl(char const *s);
 void				ft_putendl_fd(char const *s, int fd);
 char				*ft_itoa(int n);
 char				**ft_strsplit(char const *s, char c);
-int					ft_count_digits(int nb);
-int                 ft_atoi_validate(char *str, int *val);
-int					ft_isnum(char *s);
-int					ft_isspace(int c);
+t_list				*ft_lstnew(void const *content, size_t content_size);
+void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
+void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
+void				ft_lstadd(t_list **alst, t_list *new);
+void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
+t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
+char				*path_name(char *dir_path, char *filename);
 
 #endif

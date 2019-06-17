@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tholzheu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/26 10:18:56 by tholzheu          #+#    #+#             */
-/*   Updated: 2018/11/26 10:20:49 by tholzheu         ###   ########.fr       */
+/*   Created: 2018/09/14 18:19:36 by ale-goff          #+#    #+#             */
+/*   Updated: 2018/11/14 15:15:42 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_isspace(int c)
+void	ft_lstiter(t_list *lst, void (*f)(t_list *elem))
 {
-	if (c == ' ' || c == '\t')
-		return (1);
-	return (0);
+	t_list	*current;
+
+	if (!lst)
+		return ;
+	current = lst;
+	while (current)
+	{
+		f(current);
+		current = current->next;
+	}
 }

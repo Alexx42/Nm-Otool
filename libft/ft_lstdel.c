@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isnum.c                                         :+:      :+:    :+:   */
+/*   ft_lstdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tholzheu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/26 09:55:44 by tholzheu          #+#    #+#             */
-/*   Updated: 2018/11/26 11:15:13 by tholzheu         ###   ########.fr       */
+/*   Created: 2018/09/14 17:04:47 by ale-goff          #+#    #+#             */
+/*   Updated: 2018/11/14 15:23:46 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			ft_isnum(char *s)
+void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {
-	if (!s)
-		return (-1);
-	while (s && *s)
+	t_list	*lst;
+	t_list	*nxtlst;
+
+	lst = *alst;
+	while (lst)
 	{
-		if (ft_isdigit(*s) == 0)
-			return (-1);
-		s++;
+		nxtlst = lst->next;
+		del(lst->content, lst->content_size);
+		free(lst);
+		lst = nxtlst;
 	}
-	return (ft_atoi(s));
+	*alst = NULL;
 }
