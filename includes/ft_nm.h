@@ -11,4 +11,9 @@
 #include <unistd.h>
 #include <sys/stat.h>
 
+#include "common.h"
+
+char			*load_file(char *);
+void			start_process(char *path);
+
 # endif

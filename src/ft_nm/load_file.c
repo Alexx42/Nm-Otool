@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   load_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ale-goff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/16 22:34:49 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/16 22:34:52 by ale-goff         ###   ########.fr       */
+/*   Created: 2019/06/17 18:43:30 by ale-goff          #+#    #+#             */
+/*   Updated: 2019/06/17 18:43:35 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_nm.h>
 
-int			main(int ac, char **av)
+char		*load_file(char *path)
 {
-	if (ac != 2)
-		send_error("usage: ./ft_nm [file]");
-	start_process(av[1]);
-	return (0);
+	char		*ptr;
+	int			fd;
+	struct stat buf;
+
+	if ((fd = open(path, O_RDONLY)) < 0)
+		send_error("Couldn't open the file");
+	if ((fstat(fd, &buf)) == -1)
+		send_error("Fstat failed");
+	if ((ptr = mmap(0, buf.st_size, PROT_READ, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
+		send_error("Mmap failed");
+	return (ptr);
 }

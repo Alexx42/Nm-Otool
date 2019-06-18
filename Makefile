@@ -11,20 +11,21 @@ CFLAGS += -I includes/ -I libft/
 LIBFT_PATH = libft/
 LIBFT = libft/libft.a
 
-SRCS_NM = main.c
+SRCS_NM = main.c load_file.c start_process.c
 SRCS_OTOOL = main.c
+SRCS_CMN = error.c
 
 NM_OBJ = $(addprefix $(OBJ)$(NM)/, $(SRCS_NM:.c=.o))
 OTOOL_OBJ = $(addprefix $(OBJ)$(OTOOL)/, $(SRCS_OTOOL:.c=.o))
+CMN_OBJ = $(addprefix $(OBJ), $(SRCS_CMN:.c=.o))
 
 all: $(NM) $(OTOOL)
 
-$(NM): $(NM_OBJ) $(LIBFT)
+$(NM): $(NM_OBJ) $(CMN_OBJ) $(LIBFT)
 	@$(CC) $(CFLAGS) $(LIBFT) -o $@ $^
 
-$(OTOOL): $(OTOOL_OBJ) $(LIBFT)
+$(OTOOL): $(OTOOL_OBJ) $(CMN_OBJ) $(LIBFT)
 	@$(CC) $(CFLAGS) $(LIBFT) -o $@ $^
-
 
 $(NM_OBJ): $(OBJ)$(NM)/%.o: $(SRC)$(NM)/%.c
 	@echo "Compiling nm objects..."
@@ -33,6 +34,11 @@ $(NM_OBJ): $(OBJ)$(NM)/%.o: $(SRC)$(NM)/%.c
 
 $(OTOOL_OBJ): $(OBJ)$(OTOOL)/%.o: $(SRC)$(OTOOL)/%.c
 	@echo "Compiling otool objects..."
+	@$(CC) $(CFLAGS) -c -o $@ $<
+	@echo "Done!"
+
+$(CMN_OBJ): $(OBJ)%.o: $(SRC)/%.c
+	@echo "Compiling commun objects..."
 	@$(CC) $(CFLAGS) -c -o $@ $<
 	@echo "Done!"
 

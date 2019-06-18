@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ale-goff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/16 22:34:49 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/16 22:34:52 by ale-goff         ###   ########.fr       */
+/*   Created: 2019/06/17 18:48:28 by ale-goff          #+#    #+#             */
+/*   Updated: 2019/06/17 18:48:29 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_nm.h>
+#ifndef COMMON_H
+# define COMMON_H
 
-int			main(int ac, char **av)
-{
-	if (ac != 2)
-		send_error("usage: ./ft_nm [file]");
-	start_process(av[1]);
-	return (0);
-}
+
+void		send_error(char *);
+
+# endif

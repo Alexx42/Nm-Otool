@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ale-goff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/16 22:34:49 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/16 22:34:52 by ale-goff         ###   ########.fr       */
+/*   Created: 2019/06/17 18:45:03 by ale-goff          #+#    #+#             */
+/*   Updated: 2019/06/17 18:45:04 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_nm.h>
 
-int			main(int ac, char **av)
+void		send_error(char *message)
 {
-	if (ac != 2)
-		send_error("usage: ./ft_nm [file]");
-	start_process(av[1]);
-	return (0);
+	ft_putstr_fd("Error: ", 2);
+	ft_putstr_fd(message, 2);
+	ft_putchar('\n');
+	exit(1);
 }
