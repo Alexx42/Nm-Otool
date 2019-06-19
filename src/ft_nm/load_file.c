@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   load_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-goff <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 18:43:30 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/17 18:43:35 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/18 21:46:25 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_nm.h>
 
-char		*load_file(char *path)
+void		load_file(t_map *file, char *path)
 {
-	char		*ptr;
 	int			fd;
 	struct stat buf;
 
@@ -22,7 +21,8 @@ char		*load_file(char *path)
 		send_error("Couldn't open the file");
 	if ((fstat(fd, &buf)) == -1)
 		send_error("Fstat failed");
-	if ((ptr = mmap(0, buf.st_size, PROT_READ, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
+	file->size = buf.st_size;
+	if ((file->ptr = mmap(0, file->size, PROT_READ, MAP_PRIVATE, fd, 0)) ==
+		MAP_FAILED)
 		send_error("Mmap failed");
-	return (ptr);
 }

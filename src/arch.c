@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   arch.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/17 18:45:03 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/18 22:53:01 by ale-goff         ###   ########.fr       */
+/*   Created: 2019/06/18 22:26:02 by ale-goff          #+#    #+#             */
+/*   Updated: 2019/06/18 23:42:40 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_nm.h>
+#include <common.h>
 
-void		send_error(char *message)
+uint8_t		get_magic_bit(uint32_t magic)
 {
-	ft_putstr_fd("Error: ", 2);
-	ft_putstr_fd(message, 2);
-	ft_putchar('\n');
-	exit(1);
+	return (magic == MH_MAGIC_64 || magic == MH_CIGAM_64);
 }
 
-void		error_munmap(char *message, t_map *file)
+uint8_t		get_endianess(uint32_t magic)
 {
-	ft_putstr_fd("Error: ", 2);
-	ft_putstr_fd(message, 2);
-	ft_putchar('\n');
-	munmap(file->ptr, file->size);
-	exit(1);
+	return (magic == MH_CIGAM || magic == MH_CIGAM_64 || magic == FAT_CIGAM);
+}
+
+uint8_t		get_fat(uint32_t magic)
+{
+	return (magic == FAT_MAGIC || magic == FAT_CIGAM);
 }

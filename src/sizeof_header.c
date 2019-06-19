@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   sizeof_header.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/17 18:45:03 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/18 22:53:01 by ale-goff         ###   ########.fr       */
+/*   Created: 2019/06/19 00:13:10 by ale-goff          #+#    #+#             */
+/*   Updated: 2019/06/19 00:24:13 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_nm.h>
+#include <common.h>
 
-void		send_error(char *message)
+size_t		sizeof_header(t_header *header)
 {
-	ft_putstr_fd("Error: ", 2);
-	ft_putstr_fd(message, 2);
-	ft_putchar('\n');
-	exit(1);
-}
-
-void		error_munmap(char *message, t_map *file)
-{
-	ft_putstr_fd("Error: ", 2);
-	ft_putstr_fd(message, 2);
-	ft_putchar('\n');
-	munmap(file->ptr, file->size);
-	exit(1);
+	if (header->fat_header)
+		return (sizeof(struct fat_header *));
+	else if (header->header_32)
+		return (sizeof(struct mach_header *));
+	else
+		return (sizeof(struct mach_header_64 *));
 }

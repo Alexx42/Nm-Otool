@@ -1,30 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   get_arch.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/17 18:45:03 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/18 22:53:01 by ale-goff         ###   ########.fr       */
+/*   Created: 2019/06/18 22:00:36 by ale-goff          #+#    #+#             */
+/*   Updated: 2019/06/18 23:45:22 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_nm.h>
 
-void		send_error(char *message)
+void		get_arch(char *ptr, t_arch *arch)
 {
-	ft_putstr_fd("Error: ", 2);
-	ft_putstr_fd(message, 2);
-	ft_putchar('\n');
-	exit(1);
-}
-
-void		error_munmap(char *message, t_map *file)
-{
-	ft_putstr_fd("Error: ", 2);
-	ft_putstr_fd(message, 2);
-	ft_putchar('\n');
-	munmap(file->ptr, file->size);
-	exit(1);
+	arch->magic = *(int *)ptr;
+	arch->endianness = get_endianess(arch->magic);
+	arch->bit_arch = get_magic_bit(arch->magic);
+	arch->is_fat = get_fat(arch->magic);
 }
