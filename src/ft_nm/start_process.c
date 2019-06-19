@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 19:07:50 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/19 00:27:53 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/19 12:11:06 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,39 @@
 	
 // }
 
-static void		process_header(t_map *file, t_arch *arch, void *header)
+static void		print_output(struct load_command *lc, t_map *file)
 {
-	int						i;
+	struct symtab_command	*sym;
+	uint32_t				i;
+	struct nlist_64			*el;
+
+	sym = (struct symtab_command *)lc;
+	el = (void *)file->ptr + sym->symoff;
+	i = -1;
+	while (++i < sym->nsyms)
+	{
+		printf("%s\n", (file->ptr + sym->stroff) + el[i].n_un.n_strx);
+	}
+}
+
+static void		process_header(t_map *file, t_arch *arch, struct mach_header_64 *header)
+{
+	uint32_t				i;
 	struct load_command		*lc;
 	int						offset;
 
-	offset = sizeof_header(header);
+	offset = sizeof_header(arch);
 	lc = (void *)file->ptr + offset;
-	i = 0;
-	(void)arch;
-	while (i < (struct mach_header_64 *)header)
+	i = -1;
+	while (++i < header->ncmds)
 	{
-		i++;
+		if (arch->endianness)
+			swap_load_command(lc, 0);
+		if (lc->cmd == LC_SYMTAB)
+		{
+			print_output(lc, file);
+		}
+		lc = (void *)lc + lc->cmdsize;
 	}
 }
 
@@ -41,7 +61,7 @@ void			start_process(char *path)
 	t_header					header;
 
 	load_file(&file, path);
-	get_arch(file.ptr, &arch);
+	get_arch(&arch, &file);
 	if (arch.endianness)
 	{
 		if (!arch.bit_arch)
@@ -54,7 +74,7 @@ void			start_process(char *path)
 	if (get_header(&file, &arch, &header))
 		error_munmap("Malloc failed", &file);
 	if (!arch.is_fat)
-		process_header(&file, &arch, &header);
+		process_header(&file, &arch, header.header_64);
 	// else
 	// 	process_fat(&file, &arch, header.fat_header);
 	munmap(file.ptr, file.size);

@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 21:19:21 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/18 23:58:31 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/19 10:28:24 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ static struct mach_header_64	*get_header_64(char *ptr)
 {
 	struct mach_header_64		*header;
 
-	if ((header = malloc(sizeof(*header))) == NULL)
-		return (NULL);
-	ft_memcpy(header, ptr, sizeof(*header));
+	header = (struct mach_header_64 *)ptr;
 	return (header);
 }
 
@@ -26,9 +24,7 @@ static struct mach_header		*get_header_32(char *ptr)
 {
 	struct mach_header			*header;
 
-	if ((header = malloc(sizeof(*header))) == NULL)
-		return (NULL);
-	ft_memcpy(header, ptr, sizeof(*header));
+	header = (struct mach_header *)ptr;
 	return (header);
 }
 
@@ -36,9 +32,7 @@ static struct fat_header		*get_fat_header(char *ptr)
 {
 	struct fat_header			*header;
 
-	if ((header = malloc(sizeof(*header))) == NULL)
-		return (NULL);
-	ft_memcpy(header, ptr, sizeof(*header));
+	header = (struct fat_header *)ptr;
 	return (header);
 }
 
@@ -61,7 +55,7 @@ int								get_header(t_map *file,
 	}
 	else
 	{
-		if ((header->fat_header = get_header_32(file->ptr)) == NULL)
+		if ((header->fat_header = get_fat_header(file->ptr)) == NULL)
 			return (1);
 		header->header_64 = NULL;
 		header->header_32 = NULL;

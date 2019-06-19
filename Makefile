@@ -5,7 +5,7 @@ OBJ = obj/
 SRC = src/
 
 CC = gcc
-CFLAGS += -Wall -Werror -Wextra
+CFLAGS += -g3 -Wall -Werror -Wextra
 CFLAGS += -I includes/ -I libft/
 
 LIBFT_PATH = libft/

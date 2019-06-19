@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 22:57:35 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/18 23:52:12 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/19 11:52:52 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,6 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <sys/stat.h>
-
-# define MACH_HEADER_64 sizeof(mach_header_64)
-# define MACH_HEADER_32 sizeof(mach_header_32)
-
 # include "common.h"
 
 typedef struct				s_map
@@ -54,7 +50,7 @@ typedef struct				s_header
 void						load_file(t_map *file, char *ptr);
 void						start_process(char *path);
 
-void						get_arch(char *ptr, t_arch *arch);
+void						get_arch(t_arch *arch, t_map *file);
 int							get_header(t_map *file,
 							t_arch *arch, t_header *header);
 
