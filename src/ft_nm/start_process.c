@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 19:07:50 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/19 20:48:21 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/20 00:36:48 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,13 @@ static void		print_output(struct symtab_command *sym, t_map *file)
 	if ((symbol = malloc(sizeof(*symbol) * (sym->nsyms + 1))) == NULL)
 		error_munmap("Malloc failed", file);
 	while (++i < sym->nsyms)
+	{
 		ft_strncpy(symbol[i].name, strtable + el[i].n_un.n_strx, SIZE);
+		symbol[i].type = el[i].n_type & N_TYPE;
+		symbol[i].ext = el[i].n_type & N_EXT;
+		symbol[i].value = el[i].n_value;
+	}
+	quicksort(symbol, 0, sym->nsyms - 1);
 	print_symbols(symbol, sym);
 	free(symbol);
 }
@@ -42,7 +48,7 @@ static void		process_small_header(t_map *file, t_arch *arch,
 	uint32_t				i;
 	struct load_command		*lc;
 	int						offset;
-	struct symtab_command	*sym;
+	void					*ptr;
 
 	offset = sizeof_header(arch);
 	lc = (void *)file->ptr + offset;
@@ -53,8 +59,8 @@ static void		process_small_header(t_map *file, t_arch *arch,
 			swap_load_command(lc, 0);
 		if (lc->cmd == LC_SYMTAB)
 		{
-			sym = (struct symtab_command *)lc;
-			print_output(sym, file);
+			ptr = (struct symtab_command *)lc;
+			print_output(ptr, file);
 		}
 		lc = (void *)lc + lc->cmdsize;
 	}

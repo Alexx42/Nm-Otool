@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 22:57:35 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/19 20:30:37 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/20 00:36:42 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ typedef struct				s_arch
 typedef struct				s_symbol
 {
 	char					name[SIZE];
+	uint32_t				type;
+	uint32_t				ext;
+	size_t					value;
 }							t_symbol;
 
 typedef struct				s_header
@@ -62,5 +65,9 @@ int							get_header(t_map *file,
 							t_arch *arch, t_header *header);
 void						print_symbols(t_symbol *symbol,
 							struct symtab_command *sym);
+
+
+void						quicksort(t_symbol *symbol, uint32_t low,
+							uint32_t right);
 
 #endif

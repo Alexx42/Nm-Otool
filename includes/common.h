@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 18:48:28 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/19 11:49:45 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/20 00:21:49 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define COMMON_H
 
 #include <ft_nm.h>
+# define HEX "0123456789abcdef"
 
 typedef struct s_map	t_map;
 typedef struct s_header t_header;
@@ -27,5 +28,6 @@ uint8_t					get_fat(uint32_t magic);
 uint32_t				swap_32(uint32_t value);
 size_t					sizeof_header(t_arch *arch);
 uint8_t					is_valid_magic(uint32_t magic);
+void					print_address(size_t value, int length);
 
 # endif

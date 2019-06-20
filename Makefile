@@ -11,9 +11,9 @@ CFLAGS += -I includes/ -I libft/
 LIBFT_PATH = libft/
 LIBFT = libft/libft.a
 
-SRCS_NM = main.c load_file.c start_process.c get_header.c get_arch.c symbol.c
+SRCS_NM = main.c load_file.c start_process.c get_header.c get_arch.c symbol.c sort.c
 SRCS_OTOOL = main.c
-SRCS_CMN = error.c arch.c sizeof_header.c
+SRCS_CMN = error.c arch.c sizeof_header.c print_address.c
 
 NM_OBJ = $(addprefix $(OBJ)$(NM)/, $(SRCS_NM:.c=.o))
 OTOOL_OBJ = $(addprefix $(OBJ)$(OTOOL)/, $(SRCS_OTOOL:.c=.o))
