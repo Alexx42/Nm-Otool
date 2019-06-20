@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 19:07:50 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/19 12:11:06 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/19 20:48:21 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,31 @@
 	
 // }
 
-static void		print_output(struct load_command *lc, t_map *file)
+static void		print_output(struct symtab_command *sym, t_map *file)
 {
-	struct symtab_command	*sym;
 	uint32_t				i;
 	struct nlist_64			*el;
+	t_symbol				*symbol;
+	char					*strtable;
 
-	sym = (struct symtab_command *)lc;
-	el = (void *)file->ptr + sym->symoff;
 	i = -1;
+	el = (void *)file->ptr + sym->symoff;
+	strtable = file->ptr + sym->stroff;
+	if ((symbol = malloc(sizeof(*symbol) * (sym->nsyms + 1))) == NULL)
+		error_munmap("Malloc failed", file);
 	while (++i < sym->nsyms)
-	{
-		printf("%s\n", (file->ptr + sym->stroff) + el[i].n_un.n_strx);
-	}
+		ft_strncpy(symbol[i].name, strtable + el[i].n_un.n_strx, SIZE);
+	print_symbols(symbol, sym);
+	free(symbol);
 }
 
-static void		process_header(t_map *file, t_arch *arch, struct mach_header_64 *header)
+static void		process_small_header(t_map *file, t_arch *arch,
+				struct mach_header_64 *header)
 {
 	uint32_t				i;
 	struct load_command		*lc;
 	int						offset;
+	struct symtab_command	*sym;
 
 	offset = sizeof_header(arch);
 	lc = (void *)file->ptr + offset;
@@ -48,7 +53,8 @@ static void		process_header(t_map *file, t_arch *arch, struct mach_header_64 *he
 			swap_load_command(lc, 0);
 		if (lc->cmd == LC_SYMTAB)
 		{
-			print_output(lc, file);
+			sym = (struct symtab_command *)lc;
+			print_output(sym, file);
 		}
 		lc = (void *)lc + lc->cmdsize;
 	}
@@ -74,8 +80,6 @@ void			start_process(char *path)
 	if (get_header(&file, &arch, &header))
 		error_munmap("Malloc failed", &file);
 	if (!arch.is_fat)
-		process_header(&file, &arch, header.header_64);
-	// else
-	// 	process_fat(&file, &arch, header.fat_header);
+		process_small_header(&file, &arch, header.header_64);
 	munmap(file.ptr, file.size);
 }

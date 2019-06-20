@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 22:57:35 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/19 11:52:52 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/19 20:30:37 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # include <sys/stat.h>
 # include "common.h"
 
+# define SIZE 512
+
 typedef struct				s_map
 {
 	char					*ptr;
@@ -40,6 +42,11 @@ typedef struct				s_arch
 	uint8_t					is_fat;
 }							t_arch;
 
+typedef struct				s_symbol
+{
+	char					name[SIZE];
+}							t_symbol;
+
 typedef struct				s_header
 {
 	struct mach_header_64	*header_64;
@@ -53,5 +60,7 @@ void						start_process(char *path);
 void						get_arch(t_arch *arch, t_map *file);
 int							get_header(t_map *file,
 							t_arch *arch, t_header *header);
+void						print_symbols(t_symbol *symbol,
+							struct symtab_command *sym);
 
 #endif

@@ -11,7 +11,7 @@ CFLAGS += -I includes/ -I libft/
 LIBFT_PATH = libft/
 LIBFT = libft/libft.a
 
-SRCS_NM = main.c load_file.c start_process.c get_header.c get_arch.c
+SRCS_NM = main.c load_file.c start_process.c get_header.c get_arch.c symbol.c
 SRCS_OTOOL = main.c
 SRCS_CMN = error.c arch.c sizeof_header.c
 
