@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 22:57:35 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/21 00:20:55 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/21 00:54:48 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct				s_map
 	char					*ptr;
 	off_t					size;
 	char					**file;
+	uint8_t					mul_files;
 }							t_map;
 
 typedef struct				s_arch
@@ -72,6 +73,9 @@ void						start_process(char *path, t_map file);
 void						get_arch(t_arch *arch, t_map *file);
 int							get_header(t_map *file,
 							t_arch *arch, t_header *header);
+
+void						fat_header(t_map *file, t_arch *arch,
+							struct fat_header *header);
 
 void						parse_symbol(struct symtab_command *sym,
 							t_map *file, t_arch *arch);

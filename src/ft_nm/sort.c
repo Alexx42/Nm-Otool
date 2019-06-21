@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 00:22:54 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/20 17:15:21 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/21 00:46:42 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ static uint32_t	partition(t_symbol *symbol, uint32_t low, uint32_t high)
 	j = low - 1;
 	while (++j <= high - 1)
 	{
-		if (ft_strcmp(symbol[j].name, pivot.name) < 0)
+		if (ft_strcmp(symbol[j].name, pivot.name) < 0 ||
+			(!ft_strcmp(symbol[j].name, pivot.name) && symbol[j].value <= pivot.value))
 		{
 			i++;
 			swap(&symbol[i], &symbol[j]);

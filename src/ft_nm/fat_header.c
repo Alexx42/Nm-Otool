@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_address.c                                    :+:      :+:    :+:   */
+/*   fat_header.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/19 23:59:24 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/21 00:43:09 by ale-goff         ###   ########.fr       */
+/*   Created: 2019/06/21 00:52:54 by ale-goff          #+#    #+#             */
+/*   Updated: 2019/06/21 00:57:25 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <common.h>
+#include <ft_nm.h>
 
-void		print_address(size_t value, int length)
+void		fat_header(t_map *file, t_arch *arch, struct fat_header *header)
 {
-	if (length == 0)
-		return ;
-	print_address(value / 16, length - 1);
-	write(1, &HEX[value % 16], 1);
+	(void)file;
+	(void)arch;
+	(void)header;
+	printf("IM FAT\n");
 }

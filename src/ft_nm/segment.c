@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 22:10:58 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/21 00:08:55 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/21 00:25:32 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,17 @@ void			parse_segment(struct segment_command_64 *segment, t_arch *arch)
 		if (!ft_strcmp((section + i)->sectname, SECT_TEXT))
 		{
 			if (!ft_strcmp((section + i)->segname, SEG_TEXT))
-				get_section()->text += i + 1;
+				get_section()->text = i + 1;
 		}
-		else if (!ft_strcmp((section +i )->sectname, SECT_DATA))
+		else if (!ft_strcmp((section + i)->sectname, SECT_DATA))
 		{
 			if (!ft_strcmp((section + i)->segname, SEG_DATA))
-				get_section()->data += i + 1;
+				get_section()->data = i + 1;
 		}
 		else if (!ft_strcmp((section + i)->sectname, SECT_BSS))
 		{
 			if (!ft_strcmp((section + i)->segname, SEG_DATA))
-				get_section()->bss += i + 1;
+				get_section()->bss = i + 1;
 		}
 	}
 }

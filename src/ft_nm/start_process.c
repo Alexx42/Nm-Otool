@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 19:07:50 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/21 00:21:45 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/21 00:54:02 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,11 @@ static void		process_header_64(t_map *file, t_arch *arch,
 	if (arch->endianness)
 		swap_load_command(lc, 0);
 	init_section();
-	write(1, "\n", 1);
-	ft_putendl(file->file[g_idx++]);
+	if (file->mul_files)
+	{
+		write(1, "\n", 1);
+		ft_putendl(file->file[g_idx++]);
+	}
 	while (++i < header->ncmds)
 	{
 		if (lc->cmd == LC_SEGMENT_64)
@@ -66,6 +69,6 @@ void			start_process(char *path, t_map file)
 	else if (!arch.is_fat && !arch.bit_arch)
 		;
 	else if (arch.is_fat)
-		;
+		fat_header(&file, &arch, header.fat_header);
 	munmap(file.ptr, file.size);
 }
