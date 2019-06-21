@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-goff <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/16 22:34:49 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/16 22:34:52 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/21 00:16:51 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,16 @@
 
 int			main(int ac, char **av)
 {
-	if (ac != 2)
+	t_map	info;
+	int		i;
+
+	i = 0;
+	if (ac < 2)
 		send_error("usage: ./ft_nm [file]");
-	start_process(av[1]);
+	info.file = av + 1;
+	while (av[++i])
+	{
+		start_process(av[i], info);
+	}
 	return (0);
 }
