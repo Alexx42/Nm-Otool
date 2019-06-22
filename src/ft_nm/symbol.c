@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 20:07:55 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/21 00:08:00 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/21 21:07:54 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void		symbols_type(t_symbol symbol)
 	if (symbol.type == N_ABS || symbol.type == N_INDR || symbol.type == N_SECT)
 		print_address(symbol.value, 16);
 	if (symbol.type == N_ABS)
-			write(1, symbol.ext ? " A " : " a ", 3);
+		write(1, symbol.ext ? " A " : " a ", 3);
 	if (symbol.type == N_SECT)
 	{
 		if (get_section()->bss == symbol.sect)
@@ -50,7 +50,11 @@ static void		print_symbols(t_symbol *symbol,
 		{
 			symbols_type(symbol[i]);
 		}
-		ft_putendl(symbol[i].name);
+		if (IS_VALID_SYMBOL_TYPE(symbol[i].type) ||
+		(symbol[i].type == N_UNDF && symbol[i].ext))
+		{
+			ft_putendl(symbol[i].name);
+		}
 	}
 }
 
@@ -74,9 +78,9 @@ void			parse_symbol(struct symtab_command *sym,
 	i = -1;
 	el = (void *)file->ptr + sym->symoff;
 	strtable = file->ptr + sym->stroff;
-	if ((symbol = malloc(sizeof(*symbol) * (sym->nsyms + 1))) == NULL)
+	if ((symbol = malloc(sizeof(*symbol) * (sym->nsyms))) == NULL)
 		error_munmap("Malloc failed", file);
-	if (arch->endianness)
+	if (arch->is_big_endian)
 		swap_symtab_command(sym, 0);
 	while (++i < sym->nsyms)
 		add_symbol(&symbol[i], &el[i], strtable);

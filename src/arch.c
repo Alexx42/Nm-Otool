@@ -6,30 +6,14 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 22:26:02 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/21 01:00:51 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/21 19:48:49 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <common.h>
 
-uint8_t		get_magic_bit(uint32_t magic)
+uint8_t		is_valid_magic(uint32_t x, char *ptr)
 {
-	return (magic == MH_MAGIC_64 || magic == MH_CIGAM_64);
-}
-
-uint8_t		get_endianess(uint32_t magic)
-{
-	return (magic == MH_CIGAM || magic == MH_CIGAM_64 || magic == FAT_CIGAM);
-}
-
-uint8_t		get_fat(uint32_t magic)
-{
-	return (magic == FAT_MAGIC || magic == FAT_CIGAM || magic == FAT_MAGIC_64 || magic == FAT_CIGAM_64);
-}
-
-uint8_t		is_valid_magic(uint32_t magic)
-{
-	if (!get_magic_bit(magic) && magic != MH_MAGIC && magic != MH_CIGAM && magic != FAT_MAGIC && magic != FAT_CIGAM && magic != FAT_MAGIC_64)
-		return (0);
-	return (1);
+	return (IS_BIG_OBJ(x) || IS_FAT_BIG(x) || IS_FAT_LITTLE(x)
+		|| IS_64(x) || IS_ARCHIVE(ptr));
 }
