@@ -6,11 +6,13 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 19:07:50 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/22 19:52:10 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/24 00:17:41 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_nm.h>
+
+extern int g_idx;
 
 void		launch_process(t_map *file, t_arch *arch, t_header *header)
 {

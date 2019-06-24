@@ -6,13 +6,11 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/16 22:34:49 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/21 21:45:04 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/23 23:42:33 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_nm.h>
-
-extern int g_count;
 
 int			main(int ac, char **av)
 {
@@ -29,7 +27,6 @@ int			main(int ac, char **av)
 	while (av[++i])
 	{
 		start_process(av[i], info);
-		g_count = 0;
 	}
 	return (0);
 }

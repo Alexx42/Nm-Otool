@@ -6,13 +6,13 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 20:28:36 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/23 16:36:57 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/23 23:43:16 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_nm.h>
 
-uint8_t		g_idx = 0;
+int			g_idx = 0;
 
 void		process_header_64(t_map *file, t_arch *arch,
 				struct mach_header_64 *header)

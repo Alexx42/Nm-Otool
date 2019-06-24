@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 12:57:19 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/23 13:02:01 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/23 23:11:05 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ const char			*cpu_type_name(cpu_type_t cpu_type)
 
 void				print_architecture(const char *cpu, char *filename)
 {
+	write(1, "\n", 1);
 	ft_putstr(filename);
 	ft_putstr(" (for architecture ");
 	ft_putstr(cpu);
