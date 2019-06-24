@@ -12,7 +12,8 @@ LIBFT_PATH = libft/
 LIBFT = libft/libft.a
 
 SRCS_NM =	main.c load_file.c start_process.c get_header.c get_arch.c \
-			symbol.c sort.c segment.c fat_header.c archive.c process.c
+			symbol.c sort.c segment.c process_fat_header_32.c process_fat_header_64.c\
+			process_archive.c process_header_64.c process_header_32.c cpu.c
 
 SRCS_OTOOL = main.c
 
@@ -54,6 +55,7 @@ clean:
 	@make clean -C  $(LIBFT_PATH)
 	@rm -rf $(NM_OBJ)
 	@rm -rf $(OTOOL_OBJ)
+	@rm -rf $(CMN_OBJ)
 
 fclean: clean
 	@rm -rf $(NM) $(OTOOL)

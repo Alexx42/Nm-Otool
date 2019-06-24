@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 22:57:35 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/21 20:51:11 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/23 13:02:09 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@
 # define IS_VALID_SYMBOL_TYPE(x) (x == N_SECT || x == N_ABS || x == N_INDR || x == N_PBUD)
 # define IS_TYPE(a, b, c, d) (!ft_strcmp(a, b) && !ft_strcmp(c, d))
 # define SIZE 512
+
+
+typedef struct				s_cpu_type_names
+{
+	cpu_type_t				cputype;
+ 	const char				*cpu_name;
+}							t_cpu_type_names;
 
 typedef struct				s_map
 {
@@ -83,20 +90,28 @@ int							get_header(t_map *file,
 
 void						process_archive(t_map *file, t_arch *arch,
 							t_header *header);
-void						process_fat_header(t_map *file, t_arch *arch,
-							struct fat_header *header);
-
+void						process_fat_header_64(t_map *file, t_arch *arch,
+							t_header *header);
+void						process_fat_header_32(t_map *file, t_arch *arch,
+							t_header *header);
 void						process_header_64(t_map *file, t_arch *arch,
 							struct mach_header_64 *header);
+void						process_header_32(t_map *file, t_arch *arch,
+							struct mach_header *header);
 
-void						parse_symbol(struct symtab_command *sym,
+void						parse_symbol_32(struct symtab_command *sym,
 							t_map *file, t_arch *arch);
-void						parse_segment(struct segment_command_64 *segment,
+void						parse_symbol_64(struct symtab_command *sym,
+							t_map *file, t_arch *arch);
+void						parse_segment_64(struct segment_command_64 *segment,
+							t_arch *arch);
+void						parse_segment_32(struct segment_command *segment,
 							t_arch *arch);
 
 void						quicksort(t_symbol *symbol, uint32_t low,
 							uint32_t right);
-
+const char					*cpu_type_name(cpu_type_t cpu_type);
+void						print_architecture(const char *cpu, char *filename);
 t_info_sec					*get_section(void);
 void						init_section(void);
 

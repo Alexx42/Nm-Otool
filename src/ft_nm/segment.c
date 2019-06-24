@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 22:10:58 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/21 21:44:33 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/22 17:18:50 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,30 @@ void			init_section(void)
 	get_section()->text = 0;
 }
 
-void			parse_segment(struct segment_command_64 *segment, t_arch *arch)
+void			parse_segment_32(struct segment_command *segment, t_arch *arch)
+{
+	uint32_t			i;
+	struct section		*section;
+
+	i = 0;
+	section = (struct section *)((void *)segment + sizeof(*segment));
+	while (i < should_swap_32(arch, segment->nsects))
+	{
+		if (IS_TYPE((section + i)->sectname, SECT_TEXT, (section + i)->segname,
+																	SEG_TEXT))
+			get_section()->text = g_count + 1;
+		if (IS_TYPE((section + i)->sectname, SECT_DATA, (section + i)->segname,
+																	SEG_DATA))
+			get_section()->data = g_count + 1;
+		if (IS_TYPE((section + i)->sectname, SECT_BSS, (section + i)->segname,
+																	SEG_DATA))
+			get_section()->bss = g_count + 1;
+		g_count++;
+		i++;
+	}
+}
+
+void			parse_segment_64(struct segment_command_64 *segment, t_arch *arch)
 {
 	uint32_t			i;
 	struct section_64	*section;
@@ -37,9 +60,7 @@ void			parse_segment(struct segment_command_64 *segment, t_arch *arch)
 	if (arch->is_big_endian)
 		swap_segment_command_64(segment, 0);
 	section = (struct section_64 *)((void *)segment + sizeof(*segment));
-	if (arch->is_big_endian)
-		swap_section_64(section, 0, 0);
-	while (i < segment->nsects)
+	while (i < should_swap_64(arch, segment->nsects))
 	{
 		if (IS_TYPE((section + i)->sectname, SECT_TEXT, (section + i)->segname,
 																	SEG_TEXT))

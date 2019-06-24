@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 21:19:21 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/21 21:29:00 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/22 16:09:07 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static struct ar_hdr			*get_archive_header(char *ptr)
 int								get_header(t_map *file,
 								t_arch *arch, t_header *header)
 {
-	if (arch->magic && !arch->is_fat && !arch->is_archive)
+	if (arch->is_64 && !arch->is_fat && !arch->is_archive)
 	{
 		if ((header->header_64 = get_header_64(file->ptr)) == NULL)
 			return (1);
@@ -62,7 +62,7 @@ int								get_header(t_map *file,
 		if ((header->archive_header = get_archive_header(file->ptr)) == NULL)
 			return (1);
 	}
-	else
+	else if (arch->is_fat)
 	{
 		if ((header->fat_header = get_fat_header(file->ptr)) == NULL)
 			return (1);

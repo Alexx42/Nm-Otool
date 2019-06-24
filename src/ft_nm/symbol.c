@@ -6,16 +6,21 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 20:07:55 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/21 21:07:54 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/23 14:09:40 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_nm.h>
 
-static void		symbols_type(t_symbol symbol)
+static void		symbols_type(t_symbol symbol, t_arch *arch)
 {
 	if (symbol.type == N_ABS || symbol.type == N_INDR || symbol.type == N_SECT)
-		print_address(symbol.value, 16);
+	{
+		if (arch->is_64)
+			print_address(symbol.value, 16);
+		else
+			print_address(symbol.value, 8);
+	}
 	if (symbol.type == N_ABS)
 		write(1, symbol.ext ? " A " : " a ", 3);
 	if (symbol.type == N_SECT)
@@ -32,23 +37,23 @@ static void		symbols_type(t_symbol symbol)
 }
 
 static void		print_symbols(t_symbol *symbol,
-				struct symtab_command *sym)
+				uint32_t nsyms, t_arch *arch)
 {
 	uint32_t		i;
 
 	i = -1;
-	while (++i < sym->nsyms)
+	while (++i < nsyms)
 	{
-		if (!ft_strcmp(symbol[i].name, ""))
+		if (*symbol[i].name == '\0')
 			continue ;
 		if (symbol[i].type == N_UNDF && symbol[i].ext)
 		{
-			write(1, "                ", 16);
+			write(1, arch->is_64 ? "                " : "        ", arch->is_64 ? 16 : 8);
 			write(1, " U ", 3);
 		}
 		else
 		{
-			symbols_type(symbol[i]);
+			symbols_type(symbol[i], arch);
 		}
 		if (IS_VALID_SYMBOL_TYPE(symbol[i].type) ||
 		(symbol[i].type == N_UNDF && symbol[i].ext))
@@ -67,7 +72,34 @@ static void		add_symbol(t_symbol *sym, struct nlist_64 *el, char *strtable)
 	(*sym).sect = (*el).n_sect;
 }
 
-void			parse_symbol(struct symtab_command *sym,
+void			parse_symbol_32(struct symtab_command *sym,
+				t_map *file, t_arch *arch)
+{
+	uint32_t				i;
+	struct nlist			*el;
+	t_symbol				*symbol;
+	char					*strtable;
+ 
+	i = 0;
+	el = (void *)file->ptr + should_swap_32(arch, sym->symoff);
+	strtable = file->ptr + should_swap_32(arch, sym->stroff);
+	if ((symbol = malloc(sizeof(*symbol) * (sym->nsyms))) == NULL)
+		error_munmap("Malloc failed", file);
+	while (i < should_swap_32(arch, sym->nsyms))
+	{
+ 		ft_strncpy(symbol[i].name, strtable + should_swap_32(arch, el[i].n_un.n_strx), SIZE);
+		symbol[i].type = el[i].n_type & N_TYPE;
+		symbol[i].ext = el[i].n_type & N_EXT;
+		symbol[i].value = should_swap_32(arch, el[i].n_value);
+		symbol[i].sect = el[i].n_sect;
+		i++;
+	}
+	quicksort(symbol, 0, should_swap_32(arch, sym->nsyms) - 1);
+	print_symbols(symbol, should_swap_32(arch, sym->nsyms), arch);
+	free(symbol);
+}
+
+void			parse_symbol_64(struct symtab_command *sym,
 				t_map *file, t_arch *arch)
 {
 	uint32_t				i;
@@ -80,11 +112,9 @@ void			parse_symbol(struct symtab_command *sym,
 	strtable = file->ptr + sym->stroff;
 	if ((symbol = malloc(sizeof(*symbol) * (sym->nsyms))) == NULL)
 		error_munmap("Malloc failed", file);
-	if (arch->is_big_endian)
-		swap_symtab_command(sym, 0);
 	while (++i < sym->nsyms)
 		add_symbol(&symbol[i], &el[i], strtable);
 	quicksort(symbol, 0, sym->nsyms - 1);
-	print_symbols(symbol, sym);
+	print_symbols(symbol, should_swap_64(arch, sym->nsyms), arch);
 	free(symbol);
 }
