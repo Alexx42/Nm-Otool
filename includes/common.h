@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 18:48:28 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/24 15:21:21 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/25 14:16:24 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,18 @@
 # define IS_FAT_LITTLE(x) (x == FAT_MAGIC || x == FAT_MAGIC_64)
 # define IS_FAT_BIG(x) (x == FAT_CIGAM || x == FAT_CIGAM_64)
 
-typedef struct s_map	t_map;
 typedef struct s_header t_header;
 typedef struct s_arch	t_arch;
+
+typedef struct				s_map
+{
+	char					*ptr;
+	off_t					size;
+	char					**file;
+	uint8_t					mul_files;
+	void					*max_size;
+}							t_map;
+
 
 void					send_error(char *message);
 void					error_munmap(char *message, t_map *file);

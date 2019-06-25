@@ -11,13 +11,13 @@ CFLAGS += -I includes/ -I libft/
 LIBFT_PATH = libft/
 LIBFT = libft/libft.a
 
-SRCS_NM =	main.c load_file.c start_process.c get_header.c get_arch.c \
+SRCS_NM =	main.c start_process_nm.c get_header.c get_arch.c \
 			symbol.c sort.c segment.c process_fat_header_32.c process_fat_header_64.c\
 			process_archive.c process_header_64.c process_header_32.c cpu.c
 
-SRCS_OTOOL = main.c
+SRCS_OTOOL = main.c start_process_otool.c
 
-SRCS_CMN = error.c arch.c sizeof_header.c print_address.c swap_bits.c
+SRCS_CMN = error.c arch.c sizeof_header.c print_address.c swap_bits.c load_file.c
 
 NM_OBJ = $(addprefix $(OBJ)$(NM)/, $(SRCS_NM:.c=.o))
 OTOOL_OBJ = $(addprefix $(OBJ)$(OTOOL)/, $(SRCS_OTOOL:.c=.o))
@@ -52,12 +52,14 @@ $(LIBFT):
 	@echo "Done!"
 
 clean:
+	@echo "Cleaning the repo..."
 	@make clean -C  $(LIBFT_PATH)
 	@rm -rf $(NM_OBJ)
 	@rm -rf $(OTOOL_OBJ)
 	@rm -rf $(CMN_OBJ)
 
 fclean: clean
+	@echo "Cleaning the repo..."
 	@rm -rf $(NM) $(OTOOL)
 	@make fclean -C $(LIBFT_PATH)
 

@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 22:57:35 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/24 22:34:50 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/25 14:20:17 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,13 @@
 # define IS_TYPE(a, b, c, d) (!ft_strcmp(a, b) && !ft_strcmp(c, d))
 # define SIZE 512
 
+typedef struct s_map		t_map;
 
 typedef struct				s_cpu_type_names
 {
 	cpu_type_t				cputype;
  	const char				*cpu_name;
 }							t_cpu_type_names;
-
-typedef struct				s_map
-{
-	char					*ptr;
-	off_t					size;
-	char					**file;
-	uint8_t					mul_files;
-	void					*max_size;
-}							t_map;
 
 typedef struct				s_arch
 {
@@ -81,7 +73,7 @@ typedef struct				s_header
 }							t_header;
 
 void						load_file(t_map *file, char *ptr);
-void						start_process(char *path, t_map file);
+void						start_process_nm(char *path, t_map file);
 void						launch_process(t_map *file, t_arch *arch,
 							t_header *header);
 

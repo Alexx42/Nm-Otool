@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_otool.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/16 22:34:49 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/25 14:20:47 by ale-goff         ###   ########.fr       */
+/*   Created: 2019/06/25 14:20:56 by ale-goff          #+#    #+#             */
+/*   Updated: 2019/06/25 14:26:19 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_otool.h>
+#ifndef FT_OTOOL_H
+# define FT_OTOOL_H
 
-int			main(int ac, char **av)
-{
-	t_map	info;
-	int		i;
+#include <common.h>
 
-	i = 0;
-	if (ac < 2)
-	{
-		send_error("usage: ./ft_nm [file]");
-	}
-	info.file = av + 1;
-	info.mul_files = ac > 2;
-	while (av[++i])
-	{
-		start_process_nm(av[i], info);
-	}
-	return (0);
-}
+void		start_process_otool(char *filename, t_map *file);
+
+# endif
