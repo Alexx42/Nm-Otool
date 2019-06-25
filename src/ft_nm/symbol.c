@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 20:07:55 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/23 14:09:40 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/24 19:31:02 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ static void		print_symbols(t_symbol *symbol,
 			continue ;
 		if (symbol[i].type == N_UNDF && symbol[i].ext)
 		{
-			write(1, arch->is_64 ? "                " : "        ", arch->is_64 ? 16 : 8);
+			write(1, arch->is_64 ? "                " : "        ",
+			arch->is_64 ? 16 : 8);
 			write(1, " U ", 3);
 		}
 		else
@@ -79,7 +80,7 @@ void			parse_symbol_32(struct symtab_command *sym,
 	struct nlist			*el;
 	t_symbol				*symbol;
 	char					*strtable;
- 
+
 	i = 0;
 	el = (void *)file->ptr + should_swap_32(arch, sym->symoff);
 	strtable = file->ptr + should_swap_32(arch, sym->stroff);
@@ -87,7 +88,8 @@ void			parse_symbol_32(struct symtab_command *sym,
 		error_munmap("Malloc failed", file);
 	while (i < should_swap_32(arch, sym->nsyms))
 	{
- 		ft_strncpy(symbol[i].name, strtable + should_swap_32(arch, el[i].n_un.n_strx), SIZE);
+		ft_strncpy(symbol[i].name, strtable +
+		should_swap_32(arch, el[i].n_un.n_strx), SIZE);
 		symbol[i].type = el[i].n_type & N_TYPE;
 		symbol[i].ext = el[i].n_type & N_EXT;
 		symbol[i].value = should_swap_32(arch, el[i].n_value);

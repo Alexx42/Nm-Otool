@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 19:49:29 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/22 13:56:15 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/24 19:26:46 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern int g_count;
 
-static void print_filename(char *src, char *file)
+static void		print_filename(char *src, char *file)
 {
 	write(1, "\n", 1);
 	ft_putstr(src);
@@ -24,7 +24,8 @@ static void print_filename(char *src, char *file)
 	write(1, ":\n", 2);
 }
 
-void	process_archive(t_map *file, t_arch *arch, t_header *header)
+void			process_archive(t_map *file,
+				t_arch *arch, t_header *header)
 {
 	struct ar_hdr	*ar;
 	char			*str;
@@ -46,7 +47,6 @@ void	process_archive(t_map *file, t_arch *arch, t_header *header)
 			;
 		tmp = file->ptr;
 		file->ptr += sizeof(*ar) + len - 1;
-		g_count = 0;
 		launch_process(file, arch, header);
 		file->ptr = tmp;
 		file->ptr = file->ptr + ft_atoi(ar->ar_size) + sizeof(*ar);

@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 22:57:35 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/23 13:02:09 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/24 19:23:53 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct				s_map
 	off_t					size;
 	char					**file;
 	uint8_t					mul_files;
+	void					*max_size;
 }							t_map;
 
 typedef struct				s_arch
@@ -111,6 +112,7 @@ void						parse_segment_32(struct segment_command *segment,
 void						quicksort(t_symbol *symbol, uint32_t low,
 							uint32_t right);
 const char					*cpu_type_name(cpu_type_t cpu_type);
+int							cpu_host(const char *cpu);
 void						print_architecture(const char *cpu, char *filename);
 t_info_sec					*get_section(void);
 void						init_section(void);

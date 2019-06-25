@@ -6,16 +6,20 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 19:07:50 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/24 00:17:41 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/24 19:27:42 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_nm.h>
 
 extern int g_idx;
+extern int g_fat;
+extern int g_count;
 
 void		launch_process(t_map *file, t_arch *arch, t_header *header)
 {
+	g_count = 0;
+	init_section();
 	get_arch(arch, file);
 	if (get_header(file, arch, header))
 		error_munmap("Malloc failed", file);
@@ -31,12 +35,11 @@ void		launch_process(t_map *file, t_arch *arch, t_header *header)
 		process_fat_header_32(file, arch, header);
 }
 
-void			start_process(char *path, t_map file)
+void		start_process(char *path, t_map file)
 {
 	t_arch						arch;
 	t_header					header;
 
-	init_section();
 	load_file(&file, path);
 	launch_process(&file, &arch, &header);
 	munmap(file.ptr, file.size);

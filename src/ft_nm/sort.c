@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 00:22:54 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/21 00:46:42 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/24 19:28:29 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ static void	swap(t_symbol *a, t_symbol *b)
 	*b = tmp;
 }
 
-static uint32_t	partition(t_symbol *symbol, uint32_t low, uint32_t high)
+static int	partition(t_symbol *symbol, uint32_t low, uint32_t high)
 {
 	t_symbol	pivot;
-	uint32_t	i;
+	int			i;
 	uint32_t	j;
 
 	pivot = symbol[high];
@@ -33,7 +33,8 @@ static uint32_t	partition(t_symbol *symbol, uint32_t low, uint32_t high)
 	while (++j <= high - 1)
 	{
 		if (ft_strcmp(symbol[j].name, pivot.name) < 0 ||
-			(!ft_strcmp(symbol[j].name, pivot.name) && symbol[j].value <= pivot.value))
+			(!ft_strcmp(symbol[j].name, pivot.name) &&
+			symbol[j].value <= pivot.value))
 		{
 			i++;
 			swap(&symbol[i], &symbol[j]);
@@ -45,12 +46,12 @@ static uint32_t	partition(t_symbol *symbol, uint32_t low, uint32_t high)
 
 void		quicksort(t_symbol *symbol, uint32_t low, uint32_t high)
 {
-	uint32_t		pi;
+	int			pi;
 
-	if (low < high)
+	if ((int)low < (int)high)
 	{
 		pi = partition(symbol, low, high);
-		if (pi <= 0)
+		if (pi < 0)
 			return ;
 		quicksort(symbol, low, pi - 1);
 		quicksort(symbol, pi + 1, high);

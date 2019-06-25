@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 22:10:58 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/22 17:18:50 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/24 19:28:11 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void			parse_segment_32(struct segment_command *segment, t_arch *arch)
 	}
 }
 
-void			parse_segment_64(struct segment_command_64 *segment, t_arch *arch)
+void			parse_segment_64(struct segment_command_64 *segment,
+				t_arch *arch)
 {
 	uint32_t			i;
 	struct section_64	*section;

@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 23:14:10 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/22 16:33:0 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/24 19:30:40 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ uint64_t		swap_64(uint64_t value)
 
 uint64_t		should_swap_64(t_arch *arch, uint64_t value)
 {
-	 if (arch->is_big_endian)
+	if (arch->is_big_endian)
 		value = swap_64(value);
 	return (value);
 }

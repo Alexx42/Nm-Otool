@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 12:57:19 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/23 23:11:05 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/24 19:26:14 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@ const char			*cpu_type_name(cpu_type_t cpu_type)
 			return (g_cpu_type_names[i].cpu_name);
 	}
 	return ("unknown");
+}
+
+int					cpu_host(const char *cpu)
+{
+	if (!ft_strcmp(cpu, "i386") || !ft_strcmp(cpu, "x86_64"))
+		return (1);
+	return (0);
 }
 
 void				print_architecture(const char *cpu, char *filename)

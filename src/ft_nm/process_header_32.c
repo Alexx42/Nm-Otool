@@ -6,13 +6,14 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 13:34:07 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/23 23:49:47 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/24 19:29:01 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_nm.h>
 
 extern int g_idx;
+extern int g_fat;
 
 void		process_header_32(t_map *file, t_arch *arch,
 			struct mach_header *header)
@@ -24,7 +25,7 @@ void		process_header_32(t_map *file, t_arch *arch,
 	i = 0;
 	offset = sizeof_header(arch);
 	lc = (void *)file->ptr + offset;
-	if (file->mul_files)
+	if (file->mul_files && !g_fat)
 		print_file(file->file[g_idx++]);
 	while (i < should_swap_32(arch, header->ncmds))
 	{
