@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 20:07:55 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/24 22:43:37 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/24 22:47:03 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ void			parse_symbol_64(struct symtab_command *sym,
 	while (++i < sym->nsyms)
 	{
 		error_out_of_memory(file, el + i);
+		error_out_of_memory(file, el + SIZE);
 		add_symbol(&symbol[i], &el[i], strtable);
 	}
 	quicksort(symbol, 0, sym->nsyms - 1);
