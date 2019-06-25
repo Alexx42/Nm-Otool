@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 12:57:19 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/24 19:26:14 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/24 22:09:32 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ const char			*cpu_type_name(cpu_type_t cpu_type)
 
 int					cpu_host(const char *cpu)
 {
-	if (!ft_strcmp(cpu, "i386") || !ft_strcmp(cpu, "x86_64"))
+	if (!ft_strcmp(cpu, "x86_64"))
+		return (1);
+	if (!ft_strcmp(cpu, "i386") && sizeof(void *) == 4)
 		return (1);
 	return (0);
 }

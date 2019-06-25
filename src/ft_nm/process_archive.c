@@ -6,13 +6,14 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 19:49:29 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/24 19:26:46 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/24 22:18:53 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_nm.h>
 
-extern int g_count;
+extern int	g_count;
+int			g_archive = 0;
 
 static void		print_filename(char *src, char *file)
 {
@@ -33,6 +34,7 @@ void			process_archive(t_map *file,
 	size_t			len;
 
 	ar = header->archive_header;
+	g_archive = 1;
 	file->ptr += SARMAG;
 	file->ptr = (char *)file->ptr + ft_atoi(ar->ar_size) + sizeof(*ar);
 	while (file->ptr)
@@ -51,4 +53,5 @@ void			process_archive(t_map *file,
 		file->ptr = tmp;
 		file->ptr = file->ptr + ft_atoi(ar->ar_size) + sizeof(*ar);
 	}
+	g_archive = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 19:07:50 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/24 19:27:42 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/24 22:20:18 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,5 @@ void		start_process(char *path, t_map file)
 	load_file(&file, path);
 	launch_process(&file, &arch, &header);
 	munmap(file.ptr, file.size);
+	g_idx++;
 }

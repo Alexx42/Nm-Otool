@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 20:07:55 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/24 19:31:02 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/24 22:43:37 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void			parse_symbol_32(struct symtab_command *sym,
 		error_munmap("Malloc failed", file);
 	while (i < should_swap_32(arch, sym->nsyms))
 	{
+		error_out_of_memory(file, el + i);
 		ft_strncpy(symbol[i].name, strtable +
 		should_swap_32(arch, el[i].n_un.n_strx), SIZE);
 		symbol[i].type = el[i].n_type & N_TYPE;
@@ -115,7 +116,10 @@ void			parse_symbol_64(struct symtab_command *sym,
 	if ((symbol = malloc(sizeof(*symbol) * (sym->nsyms))) == NULL)
 		error_munmap("Malloc failed", file);
 	while (++i < sym->nsyms)
+	{
+		error_out_of_memory(file, el + i);
 		add_symbol(&symbol[i], &el[i], strtable);
+	}
 	quicksort(symbol, 0, sym->nsyms - 1);
 	print_symbols(symbol, should_swap_64(arch, sym->nsyms), arch);
 	free(symbol);

@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 22:57:35 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/24 19:23:53 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/24 22:34:50 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include <ar.h>
 # include "common.h"
 
-# define IS_VALID_SYMBOL_TYPE(x) (x == N_SECT || x == N_ABS || x == N_INDR || x == N_PBUD)
+# define IS_VALID_SYMBOL_TYPE(x) (x == N_SECT || x == N_ABS || x == N_INDR)
 # define IS_TYPE(a, b, c, d) (!ft_strcmp(a, b) && !ft_strcmp(c, d))
 # define SIZE 512
 
@@ -105,9 +105,9 @@ void						parse_symbol_32(struct symtab_command *sym,
 void						parse_symbol_64(struct symtab_command *sym,
 							t_map *file, t_arch *arch);
 void						parse_segment_64(struct segment_command_64 *segment,
-							t_arch *arch);
+							t_arch *arch, t_map *file);
 void						parse_segment_32(struct segment_command *segment,
-							t_arch *arch);
+							t_arch *arch, t_map *file);
 
 void						quicksort(t_symbol *symbol, uint32_t low,
 							uint32_t right);
