@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 00:52:54 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/24 22:20:05 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/25 22:00:45 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ void						process_fat_header_64(t_map *file,
 
 	i = -1;
 	g_fat = 1;
-	val = should_swap_64(arch, header->fat_header->nfat_arch);
+	val = should_swap_32(arch, header->fat_header->nfat_arch);
 	fat_arch = (struct fat_arch *)(header->fat_header + 1);
 	while (++i < val)
 	{
 		if (val > 1 && !i &&
-		cpu_host(cpu_type_name(should_swap_64(arch, fat_arch[i + 1].cputype))))
+		cpu_host(cpu_type_name(should_swap_32(arch, fat_arch[i + 1].cputype))))
 			continue ;
-		cpu = cpu_type_name(should_swap_64(arch, fat_arch[i].cputype));
+		cpu = cpu_type_name(should_swap_32(arch, fat_arch[i].cputype));
 		val > 1 && !cpu_host(cpu) ?
 		print_architecture(cpu, file->file[g_idx]) : 0;
 		fat_launch_process(file, arch, header, &fat_arch[i]);

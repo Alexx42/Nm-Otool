@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 00:52:54 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/25 20:41:50 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/25 22:19:29 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void					fat_launch_process(t_map *file,
 	void				*tmp;
 
 	tmp = file->ptr;
-	file->ptr = file->ptr + should_swap_64(arch, fat_arch->offset);
+	file->ptr = file->ptr + should_swap_32(arch, fat_arch->offset);
 	launch_process_otool(file, arch, header);
 	file->ptr = tmp;
 	g_count = 0;
@@ -39,7 +39,7 @@ void						process_fat_header_64(t_map *file,
 
 	i = -1;
 	g_fat = 1;
-	val = should_swap_64(arch, header->fat_header->nfat_arch);
+	val = should_swap_32(arch, header->fat_header->nfat_arch);
 	fat_arch = (struct fat_arch *)(header->fat_header + 1);
 	while (++i < val)
 	{

@@ -18,7 +18,7 @@ SRCS_NM =		main.c start_process_nm.c  \
 SRCS_OTOOL =	main.c start_process_otool.c process_fat_header_32.c process_fat_header_64.c \
 				process_archive.c process_header_64.c process_header_32.c segment_otool.c
 
-SRCS_CMN =		error.c arch.c sizeof_header.c print_address.c swap_bits.c \
+SRCS_CMN =		error.c arch.c print_address.c swap_bits.c \
 				load_file.c get_header.c get_arch.c cpu.c sort.c
 
 NM_OBJ = $(addprefix $(OBJ)$(NM)/, $(SRCS_NM:.c=.o))

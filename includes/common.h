@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 18:48:28 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/25 21:27:32 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/25 22:18:06 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@
 # define IS_FAT_BIG(x) (x == FAT_CIGAM || x == FAT_CIGAM_64)
 # define IS_VALID_SYMBOL_TYPE(x) (x == N_SECT || x == N_ABS || x == N_INDR)
 # define IS_TYPE(a, b, c, d) (!ft_strcmp(a, b) && !ft_strcmp(c, d))
-# define SIZE 512
+
+typedef struct s_symbol		t_symbol;
 
 typedef struct				s_header
 {
@@ -45,11 +46,11 @@ typedef struct				s_map
 
 typedef struct				s_arch
 {
-	uint32_t				magic;
 	uint8_t					is_64;
 	uint8_t					is_big_endian;
 	uint8_t					is_fat;
 	uint8_t					is_archive;
+	uint32_t				magic;
 }							t_arch;
 
 typedef struct				s_info_sec
@@ -64,15 +65,6 @@ typedef struct				s_cpu_type_names
 	cpu_type_t				cputype;
 	const char				*cpu_name;
 }							t_cpu_type_names;
-
-typedef struct				s_symbol
-{
-	char					name[SIZE];
-	uint32_t				type;
-	uint32_t				ext;
-	size_t					value;
-	uint32_t				sect;
-}							t_symbol;
 
 void						send_error(char *message);
 void						error_munmap(char *message, t_map *file);

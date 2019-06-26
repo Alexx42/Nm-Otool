@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 19:15:06 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/25 21:25:42 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/25 21:55:08 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,12 @@ void			parse_segment_32(struct segment_command *segment,
 {
 	uint32_t			i;
 	struct section		*section;
+	uint32_t			val;
 
-	i = 0;
+	i = -1;
+	val = should_swap_32(arch, segment->nsects);
 	section = (struct section *)((void *)segment + sizeof(*segment));
-	while (i < should_swap_32(arch, segment->nsects))
+	while (++i < val)
 	{
 		error_out_of_memory(file, section + i);
 		if (IS_TYPE((section + i)->sectname, SECT_TEXT, (section + i)->segname,
@@ -80,7 +82,6 @@ void			parse_segment_32(struct segment_command *segment,
 			should_swap_32(arch, (section + i)->size),
 			should_swap_32(arch, (section + i)->addr), arch);
 		}
-		i++;
 	}
 }
 
@@ -89,12 +90,12 @@ void			parse_segment_64(struct segment_command_64 *segment,
 {
 	uint32_t			i;
 	struct section_64	*section;
+	uint32_t			val;
 
-	i = 0;
-	if (arch->is_big_endian)
-		swap_segment_command_64(segment, 0);
+	i = -1;
+	val = should_swap_64(arch, segment->nsects);
 	section = (struct section_64 *)((void *)segment + sizeof(*segment));
-	while (i < should_swap_64(arch, segment->nsects))
+	while (++i < val)
 	{
 		error_out_of_memory(file, section + i);
 		if (IS_TYPE((section + i)->sectname, SECT_TEXT, (section + i)->segname,
@@ -106,6 +107,5 @@ void			parse_segment_64(struct segment_command_64 *segment,
 			should_swap_64(arch, (section + i)->size),
 			should_swap_64(arch, (section + i)->addr), arch);
 		}
-		i++;
 	}
 }
