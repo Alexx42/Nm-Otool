@@ -6,12 +6,11 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 19:15:06 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/25 21:04:25 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/25 21:25:42 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_otool.h>
-
 
 static void		print_otool_32(char *ptr, uint64_t size,
 				uint64_t addr, t_arch *arch)
