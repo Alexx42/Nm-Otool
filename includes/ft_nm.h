@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 22:57:35 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/25 17:19:55 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/25 21:26:40 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 typedef struct s_map			t_map;
 typedef struct s_arch			t_arch;
 typedef struct s_header			t_header;
-typedef struct s_cpu_type_names t_cpu_type_names;
+typedef struct s_cpu_type_names	t_cpu_type_names;
 typedef struct s_info_sec		t_info_sec;
 typedef struct s_symbol			t_symbol;
 

@@ -6,14 +6,14 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 18:48:28 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/25 20:40:11 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/25 21:27:32 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COMMON_H
 # define COMMON_H
 
-#include <ft_nm.h>
+# include <ft_nm.h>
 # define HEX "0123456789abcdef"
 # define IS_ARCHIVE(x) (!ft_strncmp(x, ARMAG, SARMAG))
 # define IS_64_OBJ(x) (x == MH_MAGIC_64 || x == MH_CIGAM_64)
@@ -25,6 +25,7 @@
 # define IS_VALID_SYMBOL_TYPE(x) (x == N_SECT || x == N_ABS || x == N_INDR)
 # define IS_TYPE(a, b, c, d) (!ft_strcmp(a, b) && !ft_strcmp(c, d))
 # define SIZE 512
+
 typedef struct				s_header
 {
 	struct mach_header_64	*header_64;
@@ -58,11 +59,10 @@ typedef struct				s_info_sec
 	uint8_t					bss;
 }							t_info_sec;
 
-
 typedef struct				s_cpu_type_names
 {
 	cpu_type_t				cputype;
- 	const char				*cpu_name;
+	const char				*cpu_name;
 }							t_cpu_type_names;
 
 typedef struct				s_symbol
@@ -118,4 +118,4 @@ void						init_section(void);
 void						print_architecture_otool(const char *cpu,
 							char *filename);
 
-# endif
+#endif
