@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 18:48:28 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/25 22:18:06 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/26 13:01:05 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct				s_header
 	struct fat_header		*fat_header;
 	struct ar_hdr			*archive_header;
 }							t_header;
+# pragma pack(4)
 
 typedef struct				s_map
 {

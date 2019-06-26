@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 14:25:25 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/25 21:25:17 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/26 12:51:56 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ void		launch_process_otool(t_map *file, t_arch *arch,
 		process_fat_header_32(file, arch, header);
 }
 
-void		start_process_otool(char *filename, t_map *file)
+void		start_process_otool(char *filename, t_map info)
 {
 	t_header	header;
 	t_arch		arch;
 
-	load_file(file, filename);
-	launch_process_otool(file, &arch, &header);
-	munmap(file->ptr, file->size);
+	load_file(&info, filename);
+	launch_process_otool(&info, &arch, &header);
+	munmap(info.ptr, info.size);
 	g_idx++;
 }

@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 19:07:50 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/25 16:59:40 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/26 11:55:13 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void		launch_process(t_map *file, t_arch *arch, t_header *header)
 
 void		start_process_nm(char *path, t_map file)
 {
-	t_arch						arch;
 	t_header					header;
+	t_arch						arch;
 
 	load_file(&file, path);
 	launch_process(&file, &arch, &header);

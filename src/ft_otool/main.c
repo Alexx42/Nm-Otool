@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/16 22:34:43 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/25 22:18:20 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/26 12:56:57 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,16 @@ int			g_idx = 0;
 
 int			main(int ac, char **av)
 {
-	t_map		file;
+	t_map		info;
 	int			i;
 
-	i = 1;
+	i = 0;
 	if (ac >= 2)
 	{
-		file.file = av + 1;
-		while (i < ac)
-			start_process_otool(av[i++], &file);
+		info.file = av + 1;
+		info.mul_files = ac > 2;
+		while (++i < ac)
+			start_process_otool(av[i], info);
 	}
 	else
 		send_error("usage: ./ft_otool [file...]");
