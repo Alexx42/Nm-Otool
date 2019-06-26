@@ -25,9 +25,9 @@ NM_OBJ = $(addprefix $(OBJ)$(NM)/, $(SRCS_NM:.c=.o))
 OTOOL_OBJ = $(addprefix $(OBJ)$(OTOOL)/, $(SRCS_OTOOL:.c=.o))
 CMN_OBJ = $(addprefix $(OBJ), $(SRCS_CMN:.c=.o))
 
-all: $(NM) $(OTOOL)
+all: create_obj $(NM) $(OTOOL)
 
-$(NM): $(NM_OBJ) $(CMN_OBJ) $(LIBFT)
+$(NM):  $(NM_OBJ) $(CMN_OBJ) $(LIBFT) 
 	@$(CC) $(CFLAGS) $(LIBFT) -o $@ $^
 
 $(OTOOL): $(OTOOL_OBJ) $(CMN_OBJ) $(LIBFT)
@@ -53,17 +53,24 @@ $(LIBFT):
 	@make -C $(LIBFT_PATH)
 	@echo "Done!"
 
+create_obj:
+	mkdir obj
+	@mkdir obj/ft_nm
+	@mkdir obj/ft_otool
+
 clean:
 	@echo "Cleaning the repo..."
 	@make clean -C  $(LIBFT_PATH)
 	@rm -rf $(NM_OBJ)
 	@rm -rf $(OTOOL_OBJ)
 	@rm -rf $(CMN_OBJ)
+	
 
 fclean: clean
 	@echo "Cleaning the repo..."
 	@rm -rf $(NM) $(OTOOL)
 	@make fclean -C $(LIBFT_PATH)
+	@rm -rf obj
 
 re: fclean all
 
