@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 17:23:27 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/25 21:44:34 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/25 23:25:53 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void		symbols_type(t_symbol symbol, t_arch *arch)
 {
 	if (arch->is_64)
 		print_address(symbol.value, 16);
-	else
+	else if (symbol.type)
 		print_address(symbol.value, 8);
 	if (symbol.type == N_ABS)
 		write(1, symbol.ext ? " A " : " a ", 3);
@@ -43,17 +43,25 @@ static void		print_symbols(t_symbol *symbol,
 	{
 		if (*symbol[i].name == '\0')
 			continue ;
-		if (symbol[i].type == N_UNDF && symbol[i].ext)
+		if ((symbol[i].type == N_UNDF && symbol[i].ext) || symbol[i].type == N_INDR)
 		{
 			write(1, "                ", arch->is_64 ? 16 : 8);
-			write(1, " U ", 3);
+			write(1, symbol[i].type == N_UNDF ? " U " : " I ", 3);
 		}
 		if (IS_VALID_SYMBOL_TYPE(symbol[i].type) ||
 		(symbol[i].type == N_UNDF && symbol[i].ext))
 		{
-			if (symbol[i].type != N_UNDF)
+			if (symbol[i].type != N_UNDF && symbol[i].type != N_INDR)
 				symbols_type(symbol[i], arch);
-			ft_putendl(symbol[i].name);
+			if (symbol[i].type == N_INDR)
+			{
+				ft_putstr(symbol[i].name);
+				ft_putstr(" (indirect for ");
+				ft_putstr(symbol[i].name);
+				ft_putendl(")");
+			}
+			else
+				ft_putendl(symbol[i].name);
 		}
 	}
 }

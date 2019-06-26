@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 20:28:36 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/25 21:59:42 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/25 23:48:55 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void		process_header_64(t_map *file, t_arch *arch,
 	i = -1;
 	val = should_swap_32(arch, header->ncmds);
 	lc = (void *)file->ptr + sizeof(struct mach_header_64);
-	if (!g_fat && !g_archive)
+	if (!g_archive)
 		print_file_otool(file->file[g_idx]);
 	while (++i < val)
 	{

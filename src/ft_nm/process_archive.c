@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 19:49:29 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/25 21:22:01 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/25 22:58:11 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,13 @@ void			process_archive(t_map *file,
 
 	ar = header->archive_header;
 	g_archive = 1;
-	file->ptr = (char *)file->ptr + SARMAG + ft_atoi(ar->ar_size) + sizeof(*ar);
+	file->ptr = file->ptr + SARMAG + ft_atoi(ar->ar_size) + sizeof(*ar);
 	while (file->ptr)
 	{
 		ar = (struct ar_hdr *)file->ptr;
 		if (ft_atoi(ar->ar_size) <= 0)
+			return ;
+		if ((void *)file->ptr + (ft_atoi(ar->ar_size) + sizeof*ar) > file->max_size)
 			return ;
 		file_archive(arch, header, file);
 		file->ptr = file->ptr + ft_atoi(ar->ar_size) + sizeof(*ar);
