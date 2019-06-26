@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 17:23:27 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/26 00:15:23 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/26 13:17:35 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ void			parse_symbol_64(struct symtab_command *sym,
 	{
 		error_out_of_memory(file, el + i);
 		symbol[i].name = strtable + should_swap_64(arch, el[i].n_un.n_strx);
+		error_out_of_memory(file, symbol[i].name);
 		symbol[i].type = el[i].n_type & N_TYPE;
 		symbol[i].ext = el[i].n_type & N_EXT;
 		symbol[i].value = should_swap_64(arch, el[i].n_value);

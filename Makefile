@@ -25,7 +25,7 @@ NM_OBJ = $(addprefix $(OBJ)$(NM)/, $(SRCS_NM:.c=.o))
 OTOOL_OBJ = $(addprefix $(OBJ)$(OTOOL)/, $(SRCS_OTOOL:.c=.o))
 CMN_OBJ = $(addprefix $(OBJ), $(SRCS_CMN:.c=.o))
 
-all: create_obj $(NM) $(OTOOL)
+all: clean_obj create_obj $(NM) $(OTOOL)
 
 $(NM):  $(NM_OBJ) $(CMN_OBJ) $(LIBFT) 
 	@$(CC) $(CFLAGS) $(LIBFT) -o $@ $^
@@ -44,7 +44,7 @@ $(OTOOL_OBJ): $(OBJ)$(OTOOL)/%.o: $(SRC)$(OTOOL)/%.c
 	@echo "Done!"
 
 $(CMN_OBJ): $(OBJ)%.o: $(SRC)/%.c
-	@echo "Compiling commun objects..."
+	@echo "Compiling common objects..."
 	@$(CC) $(CFLAGS) -c -o $@ $<
 	@echo "Done!"
 
@@ -54,9 +54,12 @@ $(LIBFT):
 	@echo "Done!"
 
 create_obj:
-	mkdir obj
+	@mkdir obj
 	@mkdir obj/ft_nm
 	@mkdir obj/ft_otool
+
+clean_obj:
+	@rm -rf obj
 
 clean:
 	@echo "Cleaning the repo..."
@@ -75,4 +78,4 @@ fclean: clean
 re: fclean all
 
 norminette:
-	norminette inc/ src/
+	norminette includes/ src/
