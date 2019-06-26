@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process_fat_header_32.c                            :+:      :+:    :+:   */
+/*   process_fat_header_64.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/22 14:06:00 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/25 17:02:41 by ale-goff         ###   ########.fr       */
+/*   Created: 2019/06/21 00:52:54 by ale-goff          #+#    #+#             */
+/*   Updated: 2019/06/25 20:41:50 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_nm.h>
+#include <ft_otool.h>
 
 extern int g_idx;
 extern int g_count;
@@ -23,13 +23,13 @@ static void					fat_launch_process(t_map *file,
 	void				*tmp;
 
 	tmp = file->ptr;
-	file->ptr = file->ptr + should_swap_32(arch, fat_arch->offset);
-	launch_process(file, arch, header);
+	file->ptr = file->ptr + should_swap_64(arch, fat_arch->offset);
+	launch_process_otool(file, arch, header);
 	file->ptr = tmp;
 	g_count = 0;
 }
 
-void						process_fat_header_32(t_map *file,
+void						process_fat_header_64(t_map *file,
 							t_arch *arch, t_header *header)
 {
 	struct fat_arch		*fat_arch;
@@ -39,16 +39,16 @@ void						process_fat_header_32(t_map *file,
 
 	i = -1;
 	g_fat = 1;
-	val = should_swap_32(arch, header->fat_header->nfat_arch);
+	val = should_swap_64(arch, header->fat_header->nfat_arch);
 	fat_arch = (struct fat_arch *)(header->fat_header + 1);
 	while (++i < val)
 	{
 		if (val > 1 && !i &&
-		cpu_host(cpu_type_name(should_swap_32(arch, fat_arch[i + 1].cputype))))
+		cpu_host(cpu_type_name(should_swap_64(arch, fat_arch[i + 1].cputype))))
 			continue ;
-		cpu = cpu_type_name(should_swap_32(arch, fat_arch[i].cputype));
+		cpu = cpu_type_name(should_swap_64(arch, fat_arch[i].cputype));
 		val > 1 && !cpu_host(cpu) ?
-		print_architecture(cpu, file->file[g_idx]) : 0;
+		print_architecture_otool(cpu, file->file[g_idx]) : 0;
 		fat_launch_process(file, arch, header, &fat_arch[i]);
 		if (cpu_host(cpu))
 			break ;

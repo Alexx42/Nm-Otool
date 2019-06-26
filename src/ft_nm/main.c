@@ -6,11 +6,17 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/16 22:34:49 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/25 14:20:47 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/25 17:02:19 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_otool.h>
+#include <ft_nm.h>
+
+int			g_fat = 0;
+int			g_archive = 0;
+int			g_count = 0;
+int			g_idx = 0;
+
 
 int			main(int ac, char **av)
 {

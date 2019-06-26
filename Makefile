@@ -1,23 +1,25 @@
-NM = ft_nm
-OTOOL = ft_otool
+NM = 			ft_nm
+OTOOL = 		ft_otool
 
-OBJ = obj/
-SRC = src/
+OBJ = 			obj/
+SRC = 			src/
 
 CC = gcc
-CFLAGS += -g3 -Wall -Werror -Wextra
-CFLAGS += -I includes/ -I libft/
+CFLAGS += 		-g3 -Wall -Werror -Wextra
+CFLAGS += 		-I includes/ -I libft/
 
-LIBFT_PATH = libft/
-LIBFT = libft/libft.a
+LIBFT_PATH = 	libft/
+LIBFT = 		libft/libft.a
 
-SRCS_NM =	main.c start_process_nm.c get_header.c get_arch.c \
-			symbol.c sort.c segment.c process_fat_header_32.c process_fat_header_64.c\
-			process_archive.c process_header_64.c process_header_32.c cpu.c
+SRCS_NM =		main.c start_process_nm.c  \
+				process_fat_header_32.c process_fat_header_64.c\
+				process_archive.c process_header_64.c process_header_32.c symbol_nm.c segment_nm.c
 
-SRCS_OTOOL = main.c start_process_otool.c
+SRCS_OTOOL =	main.c start_process_otool.c process_fat_header_32.c process_fat_header_64.c \
+				process_archive.c process_header_64.c process_header_32.c segment_otool.c
 
-SRCS_CMN = error.c arch.c sizeof_header.c print_address.c swap_bits.c load_file.c
+SRCS_CMN =		error.c arch.c sizeof_header.c print_address.c swap_bits.c \
+				load_file.c get_header.c get_arch.c cpu.c sort.c
 
 NM_OBJ = $(addprefix $(OBJ)$(NM)/, $(SRCS_NM:.c=.o))
 OTOOL_OBJ = $(addprefix $(OBJ)$(OTOOL)/, $(SRCS_OTOOL:.c=.o))

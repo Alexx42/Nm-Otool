@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 18:43:30 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/24 14:49:09 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/25 19:23:19 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void		load_file(t_map *file, char *path)
 	if (S_ISDIR(buf.st_mode))
 		send_error("You're trying to open a directory");
 	file->size = buf.st_size;
-	if ((file->ptr = mmap(0, file->size, PROT_READ, MAP_PRIVATE, fd, 0)) ==
+	if ((file->ptr = mmap(0, file->size, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0)) ==
 		MAP_FAILED)
 		send_error("Mmap failed");
 	file->max_size = file->ptr + file->size;

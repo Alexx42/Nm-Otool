@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   symbol.c                                           :+:      :+:    :+:   */
+/*   symbol_nm.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/19 20:07:55 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/25 16:20:24 by ale-goff         ###   ########.fr       */
+/*   Created: 2019/06/25 17:23:27 by ale-goff          #+#    #+#             */
+/*   Updated: 2019/06/25 20:00:19 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,15 @@ void			parse_symbol_32(struct symtab_command *sym,
 	struct nlist			*el;
 	t_symbol				*symbol;
 	char					*strtable;
+	uint32_t				val;
 
-	i = 0;
+	i = -1;
+	val = should_swap_32(arch, sym->nsyms);
 	el = (void *)file->ptr + should_swap_32(arch, sym->symoff);
 	strtable = file->ptr + should_swap_32(arch, sym->stroff);
-	if ((symbol = malloc(sizeof(*symbol) * (sym->nsyms))) == NULL)
+	if ((symbol = malloc(sizeof(*symbol) * (val))) == NULL)
 		error_munmap("Malloc failed", file);
-	while (i < should_swap_32(arch, sym->nsyms))
+	while (++i < val)
 	{
 		error_out_of_memory(file, el + i);
 		ft_strncpy(symbol[i].name, strtable +
@@ -95,10 +97,9 @@ void			parse_symbol_32(struct symtab_command *sym,
 		symbol[i].ext = el[i].n_type & N_EXT;
 		symbol[i].value = should_swap_32(arch, el[i].n_value);
 		symbol[i].sect = el[i].n_sect;
-		i++;
 	}
-	quicksort(symbol, 0, should_swap_32(arch, sym->nsyms) - 1);
-	print_symbols(symbol, should_swap_32(arch, sym->nsyms), arch);
+	quicksort(symbol, 0, val - 1, 1);
+	print_symbols(symbol, val, arch);
 	free(symbol);
 }
 
@@ -109,19 +110,21 @@ void			parse_symbol_64(struct symtab_command *sym,
 	struct nlist_64			*el;
 	t_symbol				*symbol;
 	char					*strtable;
+	uint32_t				val;
 
 	i = -1;
+	val = should_swap_64(arch, sym->nsyms);
 	el = (void *)file->ptr + sym->symoff;
 	strtable = file->ptr + sym->stroff;
 	if ((symbol = malloc(sizeof(*symbol) * (sym->nsyms))) == NULL)
 		error_munmap("Malloc failed", file);
-	while (++i < sym->nsyms)
+	while (++i < val)
 	{
 		error_out_of_memory(file, el + i);
 		error_out_of_memory(file, (void *)el + 15);
 		add_symbol(&symbol[i], &el[i], strtable);
 	}
-	quicksort(symbol, 0, sym->nsyms - 1);
-	print_symbols(symbol, should_swap_64(arch, sym->nsyms), arch);
+	quicksort(symbol, 0, sym->nsyms - 1, 1);
+	print_symbols(symbol, val, arch);
 	free(symbol);
 }

@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 23:59:24 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/24 19:29:04 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/25 18:41:32 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ void		print_address(size_t value, int length)
 void		print_file(char *file)
 {
 	write(1, "\n", 1);
+	ft_putstr(file);
+	ft_putendl(":");
+}
+
+void		print_file_otool(char *file)
+{
 	ft_putstr(file);
 	ft_putendl(":");
 }

@@ -6,13 +6,13 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 22:10:58 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/24 22:35:58 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/25 19:13:37 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_nm.h>
 
-int		g_count = 0;
+extern int g_count;
 
 t_info_sec		*get_section(void)
 {
@@ -65,6 +65,7 @@ void			parse_segment_64(struct segment_command_64 *segment,
 	section = (struct section_64 *)((void *)segment + sizeof(*segment));
 	while (i < should_swap_64(arch, segment->nsects))
 	{
+		
 		error_out_of_memory(file, section + i);
 		if (IS_TYPE((section + i)->sectname, SECT_TEXT, (section + i)->segname,
 																	SEG_TEXT))

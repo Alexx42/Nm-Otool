@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 12:57:19 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/24 22:09:32 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/25 20:53:49 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,14 @@ void				print_architecture(const char *cpu, char *filename)
 	write(1, "\n", 1);
 	ft_putstr(filename);
 	ft_putstr(" (for architecture ");
+	ft_putstr(cpu);
+	ft_putendl("):");
+}
+
+void				print_architecture_otool(const char *cpu, char *filename)
+{
+	ft_putstr(filename);
+	ft_putstr(" (architecture ");
 	ft_putstr(cpu);
 	ft_putendl("):");
 }
